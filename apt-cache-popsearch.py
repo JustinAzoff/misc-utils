@@ -35,7 +35,7 @@ def main(q):
 
     header()
     for name, line in get_pop(packages):
-        print line, packages[name]
+        print "%-100s %s" % (line, packages[name])
 
 if __name__ == "__main__":
     q = ' '.join(sys.argv[1:])
