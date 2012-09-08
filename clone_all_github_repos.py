@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
-import simplejson
+import json
 import urllib2
 
 def fetch_all(username, path=None):
@@ -10,9 +10,9 @@ def fetch_all(username, path=None):
 
     os.chdir(path)
 
-    url = "http://github.com/api/v1/json/%s" % username
-    data = simplejson.load(urllib2.urlopen(url))
-    for repo in  data['user']['repositories']:
+    url = "https://api.github.com/users/%s/repos" % username
+    data = json.load(urllib2.urlopen(url))
+    for repo in  data:
         clone_repo(repo)
 
 def clone_repo(repo):
@@ -20,7 +20,7 @@ def clone_repo(repo):
         print 'already cloned %(name)s' % repo
         return
     print 'cloning %(name)s' % repo
-    uri = "git@github.com:%(owner)s/%(name)s.git" % repo
+    uri = "git@github.com:%(full_name)s.git" % repo
     os.system('git clone %s' % uri)
 
 if __name__ == "__main__":
