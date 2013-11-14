@@ -10,7 +10,7 @@ def fetch_all(username, path=None):
 
     os.chdir(path)
 
-    url = "https://api.github.com/users/%s/repos" % username
+    url = "https://api.github.com/users/%s/repos?per_page=100" % username
     data = json.load(urllib2.urlopen(url))
     for repo in  data:
         clone_repo(repo)
